@@ -6,18 +6,25 @@ function Login() {
   const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post('http://localhost:5000/api/users/login', {
-        email,
-        password
-      });
-      console.log(res.data);
-      alert('Login successful!');
-    } catch (err) {
-      alert(err.response?.data?.message || 'Login failed');
-    }
-  };
+  e.preventDefault();
+  try {
+    const res = await axios.post('http://localhost:5000/api/users/login', {
+      email,
+      password
+    });
+
+    // ✅ Save token and user info
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("user", JSON.stringify(res.data.user));
+
+    alert('Login successful!');
+    window.location.href = '/dashboard';
+  } catch (err) {
+    console.error("Login error:", err);
+    alert(err.response?.data?.message || 'Login failed');
+  }
+};
+
 
   return (
     <div>
