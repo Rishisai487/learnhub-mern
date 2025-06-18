@@ -6,8 +6,8 @@ const courseSchema = new mongoose.Schema({
   category: String,
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now},
+  file: { type: String }
 });
 
 module.exports = mongoose.model('Course', courseSchema);

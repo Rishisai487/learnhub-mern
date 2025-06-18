@@ -1,9 +1,10 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function Navbar() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -11,15 +12,94 @@ function Navbar() {
     navigate("/login");
   };
 
+  const linkStyle = ({ isActive }) =>
+    `block px-4 py-2 rounded ${
+      isActive
+        ? 'text-indigo-700 font-semibold'
+        : 'text-gray-700 hover:text-indigo-600'
+    }`;
+
   return (
-    <nav style={{ padding: '10px', backgroundColor: '#f0f0f0' }}>
-      <Link to="/dashboard" style={{ marginRight: '15px' }}>Dashboard</Link>
-      {!user && <Link to="/login" style={{ marginRight: '15px' }}>Login</Link>}
-      {!user && <Link to="/signup" style={{ marginRight: '15px' }}>Signup</Link>}
-      {user && <Link to="/upload">Upload</Link>}
-      {user && <Link to="/courses" style={{ marginRight: '15px' }}>Courses</Link>}
-      {user && <Link to="/my-courses" style={{ marginRight: '15px' }}>My Courses</Link>}
-      {user && <button onClick={handleLogout}>Logout</button>}
+    <nav className="bg-white shadow-md">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+        {/* Brand */}
+        <div className="text-xl font-bold text-indigo-700">
+          <NavLink to="/">LearnHub</NavLink>
+        </div>
+
+        {/* Hamburger for mobile */}
+        <div className="sm:hidden">
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="text-gray-600 focus:outline-none"
+          >
+            ☰
+          </button>
+        </div>
+
+        {/* Nav links */}
+        <div className="hidden sm:flex space-x-4 items-center">
+          <NavLink to="/" className={linkStyle}>Home</NavLink>
+          <NavLink to="/dashboard" className={linkStyle}>Dashboard</NavLink>
+
+          {!user ? (
+            <>
+              <NavLink to="/login" className={linkStyle}>Login</NavLink>
+              <NavLink to="/signup" className={linkStyle}>Signup</NavLink>
+            </>
+          ) : (
+            <>
+              {user.role === "admin" && (
+                <NavLink to="/admin" className={linkStyle}>Admin</NavLink>
+              )}
+              <NavLink to="/upload" className={linkStyle}>Upload</NavLink>
+              <NavLink to="/courses" className={linkStyle}>Courses</NavLink>
+              <NavLink to="/my-courses" className={linkStyle}>My Courses</NavLink>
+              <NavLink to="/profile" className={linkStyle}>Profile</NavLink>
+              <button
+                onClick={handleLogout}
+                className="text-red-500 hover:text-red-700 font-medium ml-2"
+              >
+                Logout
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile dropdown */}
+      {mobileOpen && (
+        <div className="sm:hidden bg-white px-4 pb-4 space-y-2">
+          <NavLink to="/" className={linkStyle} onClick={() => setMobileOpen(false)}>Home</NavLink>
+          <NavLink to="/dashboard" className={linkStyle} onClick={() => setMobileOpen(false)}>Dashboard</NavLink>
+
+          {!user ? (
+            <>
+              <NavLink to="/login" className={linkStyle} onClick={() => setMobileOpen(false)}>Login</NavLink>
+              <NavLink to="/signup" className={linkStyle} onClick={() => setMobileOpen(false)}>Signup</NavLink>
+            </>
+          ) : (
+            <>
+              {user.role === "admin" && (
+                <NavLink to="/admin" className={linkStyle} onClick={() => setMobileOpen(false)}>Admin</NavLink>
+              )}
+              <NavLink to="/upload" className={linkStyle} onClick={() => setMobileOpen(false)}>Upload</NavLink>
+              <NavLink to="/courses" className={linkStyle} onClick={() => setMobileOpen(false)}>Courses</NavLink>
+              <NavLink to="/my-courses" className={linkStyle} onClick={() => setMobileOpen(false)}>My Courses</NavLink>
+              <NavLink to="/profile" className={linkStyle} onClick={() => setMobileOpen(false)}>Profile</NavLink>
+              <button
+                onClick={() => {
+                  setMobileOpen(false);
+                  handleLogout();
+                }}
+                className="text-red-500 hover:text-red-700 font-medium"
+              >
+                Logout
+              </button>
+            </>
+          )}
+        </div>
+      )}
     </nav>
   );
 }

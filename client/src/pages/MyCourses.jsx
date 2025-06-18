@@ -6,30 +6,68 @@ function MyCourses() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    const fetchEnrolled = async () => {
+    const fetchEnrolledCourses = async () => {
       try {
         const res = await axios.get(`http://localhost:5000/api/users/${user.id}/courses`);
         setCourses(res.data);
       } catch (err) {
-        console.error("Failed to load enrolled courses");
+        console.error('Failed to load courses:', err);
       }
     };
-    fetchEnrolled();
+
+    fetchEnrolledCourses();
   }, [user.id]);
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>My Enrolled Courses</h2>
-      {courses.length > 0 ? (
-        courses.map(course => (
-          <div key={course._id} style={{ border: '1px solid #ccc', marginBottom: '10px', padding: '10px' }}>
-            <h3>{course.title}</h3>
-            <p>{course.description}</p>
-            <p><strong>Category:</strong> {course.category}</p>
-          </div>
-        ))
+    <div className="min-h-screen px-6 py-10 bg-gray-100">
+      <h2 className="text-3xl font-bold text-indigo-700 mb-6">🎓 My Enrolled Courses</h2>
+
+      {courses.length === 0 ? (
+        <p className="text-gray-600">You have not enrolled in any courses yet.</p>
       ) : (
-        <p>No courses enrolled yet.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {courses.map((course) => (
+            <div
+              key={course._id}
+              className="bg-white p-6 rounded-lg shadow hover:shadow-md transition"
+            >
+              <h3 className="text-xl font-semibold text-indigo-700">{course.title}</h3>
+              <p className="text-sm text-gray-600 mt-1">{course.description}</p>
+              <p className="text-sm mt-2">
+                <strong className="text-gray-700">Category:</strong> {course.category}
+              </p>
+
+              {course.file && (
+                <div className="mt-4">
+                  {course.file.endsWith('.pdf') ? (
+                    <iframe
+                      src={`http://localhost:5000/uploads/${course.file}`}
+                      title="PDF"
+                      width="100%"
+                      height="200"
+                      className="rounded-md border"
+                    />
+                  ) : course.file.endsWith('.mp4') ? (
+                    <video
+                      src={`http://localhost:5000/uploads/${course.file}`}
+                      controls
+                      className="w-full rounded-md"
+                    />
+                  ) : (
+                    <a
+                      href={`http://localhost:5000/uploads/${course.file}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-blue-500 hover:underline text-sm"
+                    >
+                      📎 View File
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

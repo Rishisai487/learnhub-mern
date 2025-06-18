@@ -6,6 +6,21 @@ import Navbar from './components/Navbar';
 import CourseUpload from './pages/CourseUpload';
 import CourseList from './pages/CourseList';
 import MyCourses from './pages/MyCourses';
+import EditCourse from './pages/EditCourse';
+import Home from './pages/Home';
+import AdminDashboard from './pages/AdminDashboard';
+import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
+
+// inside your <Routes> element at the bottom:
+
+
+
+// Inside <Routes>
+
+
+
+
 
 
 function App() {
@@ -19,6 +34,11 @@ function App() {
         <Route path="/upload" element={<CourseUpload />} />
         <Route path="/courses" element={<CourseList />} />
         <Route path="/my-courses" element={<MyCourses />} />
+        <Route path="/edit-course/:id" element={<EditCourse />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
