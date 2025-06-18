@@ -7,6 +7,8 @@ function Dashboard() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
+    if (!user) return;
+
     const fetchEnrolled = async () => {
       try {
         const res = await axios.get(`https://learnhub-backend-qtw7.onrender.com/api/users/${user.id}/courses`);
@@ -15,8 +17,17 @@ function Dashboard() {
         console.error("Failed to fetch enrolled courses", err);
       }
     };
+
     fetchEnrolled();
-  }, [user.id]);
+  }, [user?.id]);
+
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-600 text-lg">
+        You must be logged in to view this page.
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-white px-4 sm:px-8 py-10">
