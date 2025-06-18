@@ -9,7 +9,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchEnrolled = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/users/${user.id}/courses`);
+        const res = await axios.get(`https://learnhub-backend-qtw7.onrender.com/api/users/${user.id}/courses`);
         setCourses(res.data);
       } catch (err) {
         console.error("Failed to fetch enrolled courses", err);
@@ -66,7 +66,7 @@ function Dashboard() {
                     <div className="mt-3">
                       {course.file.endsWith('.pdf') ? (
                         <iframe
-                          src={`http://localhost:5000/uploads/${course.file}`}
+                          src={`https://learnhub-backend-qtw7.onrender.com/uploads/${course.file}`}
                           title="PDF"
                           width="100%"
                           height="200"
@@ -74,13 +74,13 @@ function Dashboard() {
                         />
                       ) : course.file.endsWith('.mp4') ? (
                         <video
-                          src={`http://localhost:5000/uploads/${course.file}`}
+                          src={`https://learnhub-backend-qtw7.onrender.com/uploads/${course.file}`}
                           controls
                           className="w-full rounded"
                         />
                       ) : (
                         <a
-                          href={`http://localhost:5000/uploads/${course.file}`}
+                          href={`https://learnhub-backend-qtw7.onrender.com/uploads/${course.file}`}
                           target="_blank"
                           rel="noreferrer"
                           className="inline-block mt-2 text-blue-500 hover:underline text-sm"

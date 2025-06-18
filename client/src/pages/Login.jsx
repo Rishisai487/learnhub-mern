@@ -10,7 +10,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/users/login', {
+      const res = await axios.post('https://learnhub-backend-qtw7.onrender.com/api/users/login', {
         email,
         password,
       });

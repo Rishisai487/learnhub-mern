@@ -16,7 +16,7 @@ function EditCourse() {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/courses/all`);
+        const res = await axios.get(`https://learnhub-backend-qtw7.onrender.com/api/courses/all`);
         const found = res.data.find(c => c._id === id);
         if (found) {
           setCourse({
@@ -55,7 +55,7 @@ function EditCourse() {
     }
 
     try {
-      await axios.put(`http://localhost:5000/api/courses/${id}`, formData, {
+      await axios.put(`https://learnhub-backend-qtw7.onrender.com/api/courses/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

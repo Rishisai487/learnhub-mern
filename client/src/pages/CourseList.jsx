@@ -12,7 +12,7 @@ function CourseList() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/courses/all');
+        const res = await axios.get('https://learnhub-backend-qtw7.onrender.com/api/courses/all');
         setCourses(res.data);
         setFiltered(res.data);
       } catch (err) {
@@ -32,7 +32,7 @@ function CourseList() {
 
   const handleEnroll = async (courseId) => {
     try {
-      await axios.post('http://localhost:5000/api/enroll/enroll', {
+      await axios.post('https://learnhub-backend-qtw7.onrender.com/api/enroll/enroll', {
         userId: user.id,
         courseId: courseId
       });
@@ -49,7 +49,7 @@ function CourseList() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this course?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/courses/${id}`);
+      await axios.delete(`https://learnhub-backend-qtw7.onrender.com/api/courses/${id}`);
       setCourses(prev => prev.filter(c => c._id !== id));
       setFiltered(prev => prev.filter(c => c._id !== id));
     } catch (err) {
@@ -95,14 +95,14 @@ function CourseList() {
                   {course.file.endsWith('.pdf') ? (
                     <>
                       <iframe
-                        src={`http://localhost:5000/uploads/${course.file}`}
+                        src={`https://learnhub-backend-qtw7.onrender.com/uploads/${course.file}`}
                         title="PDF Preview"
                         width="100%"
                         height="300"
                         className="rounded-md border"
                       />
                       <a
-                        href={`http://localhost:5000/uploads/${course.file}`}
+                        href={`https://learnhub-backend-qtw7.onrender.com/uploads/${course.file}`}
                         target="_blank"
                         rel="noreferrer"
                         className="block text-blue-500 mt-2 hover:underline text-sm"
@@ -113,12 +113,12 @@ function CourseList() {
                   ) : course.file.endsWith('.mp4') ? (
                     <>
                       <video
-                        src={`http://localhost:5000/uploads/${course.file}`}
+                        src={`https://learnhub-backend-qtw7.onrender.com/uploads/${course.file}`}
                         controls
                         className="rounded-md w-full mt-2"
                       />
                       <a
-                        href={`http://localhost:5000/uploads/${course.file}`}
+                        href={`https://learnhub-backend-qtw7.onrender.com/uploads/${course.file}`}
                         target="_blank"
                         rel="noreferrer"
                         className="block text-blue-500 mt-2 hover:underline text-sm"
@@ -128,7 +128,7 @@ function CourseList() {
                     </>
                   ) : (
                     <a
-                      href={`http://localhost:5000/uploads/${course.file}`}
+                      href={`https://learnhub-backend-qtw7.onrender.com/uploads/${course.file}`}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-block text-sm text-blue-500 hover:underline"

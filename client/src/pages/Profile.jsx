@@ -8,7 +8,7 @@ function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/users/${user.id}/profile`);
+        const res = await axios.get(`https://learnhub-backend-qtw7.onrender.com/api/users/${user.id}/profile`);
         setProfile(res.data);
       } catch (err) {
         console.error('Failed to fetch profile', err);

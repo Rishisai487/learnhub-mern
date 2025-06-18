@@ -8,7 +8,7 @@ function MyCourses() {
   useEffect(() => {
     const fetchEnrolledCourses = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/users/${user.id}/courses`);
+        const res = await axios.get(`https://learnhub-backend-qtw7.onrender.com/api/users/${user.id}/courses`);
         setCourses(res.data);
       } catch (err) {
         console.error('Failed to load courses:', err);
@@ -41,7 +41,7 @@ function MyCourses() {
                 <div className="mt-4">
                   {course.file.endsWith('.pdf') ? (
                     <iframe
-                      src={`http://localhost:5000/uploads/${course.file}`}
+                      src={`https://learnhub-backend-qtw7.onrender.com/uploads/${course.file}`}
                       title="PDF"
                       width="100%"
                       height="200"
@@ -49,13 +49,13 @@ function MyCourses() {
                     />
                   ) : course.file.endsWith('.mp4') ? (
                     <video
-                      src={`http://localhost:5000/uploads/${course.file}`}
+                      src={`https://learnhub-backend-qtw7.onrender.com/uploads/${course.file}`}
                       controls
                       className="w-full rounded-md"
                     />
                   ) : (
                     <a
-                      href={`http://localhost:5000/uploads/${course.file}`}
+                      href={`https://learnhub-backend-qtw7.onrender.com/uploads/${course.file}`}
                       target="_blank"
                       rel="noreferrer"
                       className="text-blue-500 hover:underline text-sm"

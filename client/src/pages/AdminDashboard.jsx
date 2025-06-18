@@ -7,14 +7,16 @@ function AdminDashboard() {
 
   useEffect(() => {
     const fetchStats = async () => {
-      const res = await axios.get('http://localhost:5000/api/users/admin/stats');
+      const res = await axios.get('https://learnhub-backend-qtw7.onrender.com/api/users/admin/stats');
       setStats(res.data);
     };
 
     const fetchUsers = async () => {
-      const res = await axios.get('http://localhost:5000/api/users/admin/users');
+      const res = await axios.get('https://learnhub-backend-qtw7.onrender.com/api/users/admin/users');
       setUsers(res.data);
     };
+
+
 
     fetchStats();
     fetchUsers();

@@ -19,7 +19,7 @@ function CourseUpload() {
     formData.append('file', file);
 
     try {
-      await axios.post('http://localhost:5000/api/courses/add', formData, {
+      await axios.post('https://learnhub-backend-qtw7.onrender.com/api/courses/add', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       alert('✅ Course uploaded!');
