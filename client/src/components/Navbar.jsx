@@ -37,7 +37,7 @@ function Navbar() {
           </button>
         </div>
 
-        {/* Nav links */}
+        {/* Desktop Nav links */}
         <div className="hidden sm:flex space-x-4 items-center">
           <NavLink to="/" className={linkStyle}>Home</NavLink>
           <NavLink to="/dashboard" className={linkStyle}>Dashboard</NavLink>
@@ -50,9 +50,11 @@ function Navbar() {
           ) : (
             <>
               {user.role === "admin" && (
-                <NavLink to="/admin" className={linkStyle}>Admin</NavLink>
+                <>
+                  <NavLink to="/admin" className={linkStyle}>Admin</NavLink>
+                  <NavLink to="/upload" className={linkStyle}>Upload</NavLink>
+                </>
               )}
-              <NavLink to="/upload" className={linkStyle}>Upload</NavLink>
               <NavLink to="/courses" className={linkStyle}>Courses</NavLink>
               <NavLink to="/my-courses" className={linkStyle}>My Courses</NavLink>
               <NavLink to="/profile" className={linkStyle}>Profile</NavLink>
@@ -67,7 +69,7 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Mobile dropdown */}
+      {/* Mobile Nav links */}
       {mobileOpen && (
         <div className="sm:hidden bg-white px-4 pb-4 space-y-2">
           <NavLink to="/" className={linkStyle} onClick={() => setMobileOpen(false)}>Home</NavLink>
@@ -81,9 +83,11 @@ function Navbar() {
           ) : (
             <>
               {user.role === "admin" && (
-                <NavLink to="/admin" className={linkStyle} onClick={() => setMobileOpen(false)}>Admin</NavLink>
+                <>
+                  <NavLink to="/admin" className={linkStyle} onClick={() => setMobileOpen(false)}>Admin</NavLink>
+                  <NavLink to="/upload" className={linkStyle} onClick={() => setMobileOpen(false)}>Upload</NavLink>
+                </>
               )}
-              <NavLink to="/upload" className={linkStyle} onClick={() => setMobileOpen(false)}>Upload</NavLink>
               <NavLink to="/courses" className={linkStyle} onClick={() => setMobileOpen(false)}>Courses</NavLink>
               <NavLink to="/my-courses" className={linkStyle} onClick={() => setMobileOpen(false)}>My Courses</NavLink>
               <NavLink to="/profile" className={linkStyle} onClick={() => setMobileOpen(false)}>Profile</NavLink>
