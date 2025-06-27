@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import CommentSection from '../components/CommentSection';
 
 function CourseList() {
   const [courses, setCourses] = useState([]);
@@ -164,6 +165,10 @@ function CourseList() {
                   </button>
                 </div>
               )}
+
+              <div className="mt-6">
+                <CommentSection courseId={course._id} />
+              </div>
             </div>
           ))
         ) : (

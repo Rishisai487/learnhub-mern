@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import CommentSection from '../components/CommentSection'; // make sure path is correct
 
 function MyCourses() {
   const [courses, setCourses] = useState([]);
@@ -65,6 +66,11 @@ function MyCourses() {
                   )}
                 </div>
               )}
+
+              {/* Comment section */}
+              <div className="mt-4">
+                <CommentSection courseId={course._id} />
+              </div>
             </div>
           ))}
         </div>
