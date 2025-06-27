@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import CommentSection from '../components/CommentSection';
 
 function CourseList() {
   const [courses, setCourses] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [category, setCategory] = useState('');
+  const [activeComments, setActiveComments] = useState(null);
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -166,9 +166,20 @@ function CourseList() {
                 </div>
               )}
 
-              <div className="mt-6">
-                <CommentSection courseId={course._id} />
-              </div>
+              <button
+                onClick={() =>
+                  setActiveComments(activeComments === course._id ? null : course._id)
+                }
+                className="mt-3 text-sm text-indigo-600 hover:underline"
+              >
+                {activeComments === course._id ? 'Hide Comments' : '💬 View Comments'}
+              </button>
+
+              {activeComments === course._id && (
+                <div className="mt-2 text-sm text-gray-600 border-t pt-2">
+                  Comments for this course go here (backend integration soon).
+                </div>
+              )}
             </div>
           ))
         ) : (
