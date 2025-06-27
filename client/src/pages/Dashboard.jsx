@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import CommentSection from '../components/CommentSection'; // Make sure this path is correct
 
 function Dashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -64,7 +65,7 @@ function Dashboard() {
           {courses.length === 0 ? (
             <p className="text-gray-500">You haven't enrolled in any courses yet.</p>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-8">
               {courses.map((course) => (
                 <div key={course._id} className="bg-white p-5 rounded-lg shadow hover:shadow-md transition">
                   <h4 className="text-lg font-semibold text-indigo-700">{course.title}</h4>
@@ -101,6 +102,11 @@ function Dashboard() {
                       )}
                     </div>
                   )}
+
+                  {/* Comment Section */}
+                  <div className="mt-6">
+                    <CommentSection courseId={course._id} />
+                  </div>
                 </div>
               ))}
             </div>
