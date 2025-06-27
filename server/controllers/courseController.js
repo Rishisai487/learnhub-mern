@@ -10,10 +10,9 @@ const addCourse = async (req, res) => {
 
   try {
     const uploader = await User.findById(userId);
-    if (!uploader || uploader.role !== 'admin') {
-      return res.status(403).json({ message: 'Only admins can upload courses' });
-    }
-
+   if (!uploader || (uploader.role !== 'admin' && uploader.role !== 'instructor')) {
+  return res.status(403).json({ message: 'Only admins or instructors can upload courses' });
+}
     const course = await Course.create({
       title,
       description,
@@ -38,7 +37,7 @@ const updateCourse = async (req, res) => {
 
   try {
     const user = await User.findById(userId);
-    if (!user || user.role !== 'admin') {
+   if (!user || (user.role !== 'admin' && user.role !== 'instructor')) {
       return res.status(403).json({ message: 'Only admins can update courses' });
     }
 
